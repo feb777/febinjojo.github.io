@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gamified Fitness</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;900&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Outfit', sans-serif;
+      background-color: #f2f6fa;
+      color: #222;
+      scroll-behavior: smooth;
+    }
+    .hero {
+      background: url('https://images.unsplash.com/photo-1554284126-aa88f22d8b74?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      height: 100vh;
+      position: relative;
+      color: #fff;
+    }
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.7);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+    .logo {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: #ffcc00;
+      margin: 20px;
+    }
+    .login-btn, .cta-button {
+      padding: 12px 25px;
+      background: #00c9a7;
+      color: white;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      margin: 10px;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    .login-btn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      background: #ff4b2b;
+    }
+    .login-btn:hover, .cta-button:hover {
+      background: #00b095;
+    }
+    .hero-content h2 {
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: #ffcc00;
+    }
+    .hero-content p {
+      font-size: 1.4rem;
+      max-width: 600px;
+      margin-bottom: 25px;
+      color: #eee;
+    }
+    .features {
+      padding: 60px 20px;
+      background: linear-gradient(to right, #fbd786, #f7797d);
+      text-align: center;
+      color: white;
+    }
+    .feature-cards {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+    }
+    .feature-cards .card {
+      background: white;
+      color: #333;
+      padding: 30px;
+      width: 90%;
+      max-width: 400px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-align: center;
+      cursor: pointer;
+    }
+    .feature-cards .card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    }
+    .section-content {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+      display: none;
+    }
+    .section-content h2 {
+      font-size: 2rem;
+      color: #00b095;
+      margin-bottom: 15px;
+    }
+    .section-content ul {
+      padding-left: 20px;
+    }
+    footer {
+      background: #222;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 0.9rem;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      position: relative;
+    }
+    .modal-content h3 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #00b095;
+    }
+    .modal-content input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+    .modal-content button {
+      width: 100%;
+      padding: 12px;
+      background: #00c9a7;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <div class="overlay">
+      <div class="logo">Gamified Fitness</div>
+      <button class="login-btn" onclick="openModal()">Login</button>
+      <div class="hero-content">
+        <h2>Level Up Your Fitness Journey</h2>
+        <p>Earn rewards, track your progress, and challenge your friends. Fitness has never been this fun!</p>
+        <button class="cta-button" onclick="openModal()">Get Started</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="features" id="features">
+    <h2>Features</h2>
+    <div class="feature-cards">
+      <div onclick="showSection('xp')" class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/189/189792.png" width="60" alt="XP">
+        <h3>Track XP</h3>
+        <p>Earn XP from every workout. Level up and unlock new badges.</p>
+      </div>
+      <div onclick="showSection('challenges')" class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/3304/3304568.png" width="60" alt="Challenges">
+        <h3>Daily Challenges</h3>
+        <p>Crush streaks and earn rewards through daily goals and missions.</p>
+      </div>
+      <div onclick="showSection('friends')" class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/942/942748.png" width="60" alt="Friends">
+        <h3>Compete with Friends</h3>
+        <p>Join your friends, compare progress, and climb the leaderboard.</p>
+      </div>
+    </div>
+  </section>
+
+  <div id="xp" class="section-content">
+    <h2>Track Workouts with XP</h2>
+    <p>Gamified Fitness rewards every movement. Whether you're walking, lifting, or doing yoga — earn XP and level up!</p>
+    <ul>
+      <li>Track duration and intensity</li>
+      <li>Earn badges and unlock features</li>
+      <li>Visual progress indicators</li>
+    </ul>
+  </div>
+  <div id="challenges" class="section-content">
+    <h2>Daily Streaks and Challenges</h2>
+    <p>Stay motivated with goal-based challenges. Keep your streak alive and win new badges and rewards.</p>
+    <ul>
+      <li>Custom 7-day and 30-day challenges</li>
+      <li>XP boosts for consistent performance</li>
+      <li>Break streaks? Restart stronger!</li>
+    </ul>
+  </div>
+  <div id="friends" class="section-content">
+    <h2>Compete with Friends</h2>
+    <p>Challenge your fitness buddies, share XP, and rise to the top together!</p>
+    <ul>
+      <li>Friends leaderboard</li>
+      <li>Social sharing and referrals</li>
+      <li>Bonus XP for group events</li>
+    </ul>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Gamified Fitness. All rights reserved.</p>
+  </footer>
+
+  <div class="modal" id="loginModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h3>Login to Gamified Fitness</h3>
+      <form onsubmit="event.preventDefault(); alert('Logged in!'); closeModal();">
+        <input type="text" placeholder="Username or Email" required />
+        <input type="password" placeholder="Password" required />
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function openModal() {
+      document.getElementById('loginModal').style.display = 'flex';
+    }
+    function closeModal() {
+      document.getElementById('loginModal').style.display = 'none';
+    }
+    function showSection(id) {
+      ['xp','challenges','friends'].forEach(s => {
+        document.getElementById(s).style.display = (s === id) ? 'block' : 'none';
+        if (s === id) {
+          window.scrollTo({ top: document.getElementById(s).offsetTop - 30, behavior: 'smooth' });
+        }
+      });
+    }
+    window.onclick = function(event) {
+      if (event.target == document.getElementById('loginModal')) {
+        closeModal();
+      }
+    };
+  </script>
+</body>
+</html>
